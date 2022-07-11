@@ -22,7 +22,7 @@ class Position(models.Model):
         return self.name
 
 
-class Employers(models.Model):
+class Employee(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     date_of_birth = models.DateField()
@@ -40,3 +40,10 @@ class Employers(models.Model):
 
     def __str__(self):
         return self.first_name
+
+    def save(self, *args, **kwargs):
+        for field_name in ['first_name', 'last_name']:
+            val = getattr(self, field_name, False)
+            if val:
+                setattr(self, field_name, val.capitalize())
+        super(Employee, self).save(*args, **kwargs)
