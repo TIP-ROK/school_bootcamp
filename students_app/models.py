@@ -35,7 +35,3 @@ class Student(models.Model):
             if val:
                 setattr(self, field_name, val.capitalize())
         super(Student, self).save(*args, **kwargs)
-    # def save(self, *args, **kwargs):
-    #     self.first_name = self.first_name.capitalize()
-    #     self.last_name = self.last_name.capitalize()
-    #     super(Student, self).save()
