@@ -1,5 +1,6 @@
 from django.db import models
 from school_app.models import School
+from django.contrib.auth.models import User
 
 
 class Department(models.Model):
@@ -23,27 +24,18 @@ class Position(models.Model):
 
 
 class Employee(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    date_of_birth = models.DateField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='employee', blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
     phone_number = models.CharField(max_length=255)
-    email = models.EmailField(null=True, blank=True)
     M = 'Male'
     F = 'Female'
     GENDER = [
         (M, 'Male'),
         (F, 'Female')
     ]
-    gender = models.CharField(max_length=6, choices=GENDER)
-    salary = models.DecimalField(max_digits=9, decimal_places=2)
-    position = models.ForeignKey(Position, on_delete=models.CASCADE)
+    gender = models.CharField(max_length=6, choices=GENDER, blank=True, null=True)
+    salary = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True)
+    position = models.ForeignKey(Position, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return self.first_name
-
-    def save(self, *args, **kwargs):
-        for field_name in ['first_name', 'last_name']:
-            val = getattr(self, field_name, False)
-            if val:
-                setattr(self, field_name, val.capitalize())
-        super(Employee, self).save(*args, **kwargs)
+        return f'{self.phone_number}, {self.user}'

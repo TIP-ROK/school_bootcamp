@@ -28,4 +28,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all().order_by('-id')
     serializer_class = EmployeeSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    ordering_fields = ['firs_name', 'last_name']
+    lookup_field = 'pk'
+    ordering_fields = ['user']
+    search_fields = ['user__username']
+    filterset_fields = ['position']
