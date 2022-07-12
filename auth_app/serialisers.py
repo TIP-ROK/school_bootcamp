@@ -1,7 +1,7 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from employee_app.models import Employee
 from rest_framework.authtoken.models import Token
+from auth_app.models import MyUser
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -9,8 +9,8 @@ class UserSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(required=True, min_length=10, max_length=15, write_only=True)
 
     class Meta:
-        model = User
-        fields = ['id', 'username', 'password', 'email', 'confirm_password', 'phone_number']
+        model = MyUser
+        fields = ['id', 'password', 'email', 'confirm_password', 'phone_number']
 
     def validate(self, attrs):
         attrs = super().validate(attrs)
@@ -21,8 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        user = User.objects.create_user(
-            username=validated_data["username"],
+        user = MyUser.objects.create_user(
             email=validated_data["email"],
             password=validated_data["password"]
         )

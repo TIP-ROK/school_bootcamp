@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'students_app',
     'school_app',
     'employee_app',
+    'auth_app',
 ]
 
 MIDDLEWARE = [
@@ -134,4 +135,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+}
+
+AUTH_USER_MODEL = 'auth_app.MyUser'
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'auth_app.serializers.UserSerializer',
 }
