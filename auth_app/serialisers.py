@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from employee_app.models import Employee
+from rest_framework.authtoken.models import Token
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -30,4 +31,11 @@ class UserSerializer(serializers.ModelSerializer):
             phone_number=validated_data['phone_number']
 
         )
+        Token.objects.create(user=user)
         return user
+
+    # def to_representation(self, instance):
+    #     response = super().to_representation(instance)
+    #     token = Token.objects.filter(user_id=instance.id).first()
+    #     response['token'] = token.key
+    #     return response

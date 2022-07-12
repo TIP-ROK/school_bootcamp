@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # third party
     'rest_framework',
     'django_filters',
+    'rest_framework.authtoken',
     # my apps
     'courses_app',
     'students_app',
