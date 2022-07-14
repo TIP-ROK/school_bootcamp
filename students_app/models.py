@@ -14,7 +14,7 @@ class Student(models.Model):
     date_of_birth = models.DateField()
     phone_number = models.CharField(max_length=14)
     email = models.EmailField()
-    gender = models.CharField(max_length=5, )
+    gender = models.CharField(max_length=5, choices=GENDER)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
